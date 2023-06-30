@@ -109,7 +109,9 @@ const  RegisterModal = () => {
     '>
         <div className='flex flex-row items-center justify-center gap-2'>
             <div>Already have an account?</div>
-            <div className='text-neutral-800 cursor-pointer hover:underline'>
+            <div 
+            onClick={registerModal.onClose}
+            className='text-neutral-800 cursor-pointer hover:underline'>
                 Login
             </div>
         </div>
