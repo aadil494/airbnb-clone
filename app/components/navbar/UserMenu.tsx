@@ -4,12 +4,15 @@ import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
-import useLoginModal from "@/app/hooks/useLoginModal";
-import { User } from "@prisma/client";
+import useLoginModal from "@/app/hooks/useLoginModal"; 
+import { signOut } from "next-auth/react";
+
+import { SafeUser } from "@/app/types";
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +59,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
         >
           <AiOutlineMenu size={20} />
           <div className="hidden md:block">
-            <Avatar />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
@@ -84,7 +87,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={()=>{}} label="My Properties" />
                 <MenuItem onClick={()=>{}} label="Airbnb my home" />
                 <hr />
-                <MenuItem onClick={()=>{}} label="Logout" />
+                <MenuItem onClick={()=>{
+                  signOut()
+                }} label="Logout" />
 
               </>
             ) : (
