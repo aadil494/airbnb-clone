@@ -10,6 +10,7 @@ import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
+import Input from "../inputs/Input";
 
 // Our rent modal form will have steps to it.
 enum STEPS {
@@ -24,6 +25,8 @@ enum STEPS {
 const RentModal = () => {
   const rentModal = useRentModal();
   const [step, setStep] = useState(STEPS.CATEGORY);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -179,7 +182,61 @@ const RentModal = () => {
         />
       </div>
     );
+    
   }
+if (step === STEPS.DESCRIPTION) {
+
+    bodyContent = (
+        <div className="flex flex-col gap-8">
+            <Heading
+                title="Describe your place to guests"
+                subtitle="What's your place like?"
+            />
+            <Input
+                id="title"
+                label="Title"
+                disabled={isLoading}
+                register={register}
+                errors = {errors}
+                required
+            
+            />
+            <hr />
+            <Input
+                id="description"
+                label="Description"
+                disabled={isLoading}
+                register={register}
+                errors = {errors}
+                required
+            
+            />
+
+        </div>
+    )
+
+    }
+    if (step === STEPS.PRICE) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="How much do you want to charge?"
+                    subtitle="Set a price"
+                />
+                <Input
+                    id="price"
+                    label="Price"
+                    disabled={isLoading}
+                    register={register}
+                    errors = {errors}
+                    required
+                    formatPrice
+                    type="number"
+                />
+                </div>
+                
+                )
+    }
 
   return (
     <Modal
