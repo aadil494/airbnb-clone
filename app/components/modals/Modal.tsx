@@ -155,13 +155,6 @@ const  Modal : React.FC<ModalProps> = ({
                     gap-4
                     w-full
                   ">
-
-                    <Button 
-                    disabled={disabled}
-                    label={actionLabel}
-                    onClick={handleSubmit}
-
-                    />
                     {/* secondary action */
                     
                     secondaryAction && secondaryActionLabel && (
@@ -172,6 +165,13 @@ const  Modal : React.FC<ModalProps> = ({
                       onClick={handleSecondaryAction}
                     />  
                     )}
+                    
+                    <Button 
+                    disabled={disabled}
+                    label={actionLabel}
+                    onClick={handleSubmit}
+
+                    />
                     
 
                   </div>
