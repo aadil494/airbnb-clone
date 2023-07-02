@@ -9,6 +9,7 @@ import { FieldValue, FieldValues, useForm } from "react-hook-form";
 import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
+import ImageUpload from "../inputs/ImageUpload";
 
 // Our rent modal form will have steps to it.
 enum STEPS {
@@ -50,6 +51,7 @@ const RentModal = () => {
   const guestCount = watch("guestCount");
   const roomCount = watch("roomCount");
   const bathroomCount = watch("bathroomCount");
+  const imageSrc = watch("imageSrc");
   const Map = useMemo(
     () =>
       dynamic(() => import("../Map"), {
@@ -159,6 +161,21 @@ const RentModal = () => {
           subtitle="How many bathrooms do you allow? "
           value={bathroomCount}
           onChange={(value) => setCustomeValue("bathroomCount", value)}
+        />
+      </div>
+    );
+  }
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Add some photos of your place"
+          subtitle="Show off your space, amenities, and views!"
+        />
+        <ImageUpload 
+        
+        value={imageSrc} 
+        onChange={(value) => setCustomeValue("imageSrc", value)}
         />
       </div>
     );
