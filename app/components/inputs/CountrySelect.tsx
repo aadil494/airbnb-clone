@@ -3,6 +3,7 @@
 import useCountries from "@/app/hooks/useCountries";
 import { on } from "events";
 import Select from "react-select";
+import Map from "../Map";
 
 export type CountrySelectValue = {
     label: string;
@@ -57,6 +58,7 @@ const CountrySelect  : React.FC<CountrySelectProps> = ({
             })}
             
         />
+        
     </div>
   )
 }
