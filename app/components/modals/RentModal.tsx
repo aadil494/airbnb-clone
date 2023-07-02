@@ -6,6 +6,7 @@ import Heading from "../Heading";
 import { categories } from "../navbar/Categories";
 import CategoryInput from "../inputs/CategoryInput";
 import { FieldValue, FieldValues, useForm } from "react-hook-form";
+import CountrySelect from "../inputs/CountrySelect";
 
 // Our rent modal form will have steps to it.
 enum STEPS {
@@ -43,12 +44,13 @@ const RentModal = () => {
   });
 
   const category = watch("category"); // beacuse of custom field
+  const location = watch("location"); 
 
   const setCustomeValue = (id: string, value: any) => {
-    setValue(id, value , {
-        shouldDirty: true, // When set to true, it marks the field as "dirty," indicating that its value has been modified. This is useful for tracking whether a user has made any changes to a field. When a field is marked as dirty, it may trigger validation rules or other behaviors associated with form modifications.
-        shouldValidate: true, // When set to true, it will trigger field validation. If validation fails, the isValid property will be set to false, and errors will be set.
-        shouldTouch: true, // When set to true, it will set the field to "touched," which allows you to display validation errors on fields that are empty.
+    setValue(id, value, {
+      shouldDirty: true, // When set to true, it marks the field as "dirty," indicating that its value has been modified. This is useful for tracking whether a user has made any changes to a field. When a field is marked as dirty, it may trigger validation rules or other behaviors associated with form modifications.
+      shouldValidate: true, // When set to true, it will trigger field validation. If validation fails, the isValid property will be set to false, and errors will be set.
+      shouldTouch: true, // When set to true, it will set the field to "touched," which allows you to display validation errors on fields that are empty.
     });
   };
 
@@ -95,7 +97,7 @@ const RentModal = () => {
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
             <CategoryInput
-              onClick={(category) => setCustomeValue("category", category) }
+              onClick={(category) => setCustomeValue("category", category)}
               label={item.label}
               selected={category === item.label}
               icon={item.icon}
@@ -106,11 +108,23 @@ const RentModal = () => {
     </div>
   );
 
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you!"
+        />
+        <CountrySelect value={location} onChange={(value) => setCustomeValue('location', value)} />
+      </div>
+    );
+  }
+
   return (
     <Modal
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onClose}
+      onSubmit={onNext}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
