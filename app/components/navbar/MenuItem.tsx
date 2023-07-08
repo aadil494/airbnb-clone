@@ -10,7 +10,7 @@ const MenuItem : React.FC<MenuItemProps> = ({
 }) => {
     return (
         <div className="
-            px-4
+            px-5
             py-3
             hover:bg-neutral-100
             transition
